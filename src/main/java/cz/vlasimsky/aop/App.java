@@ -1,6 +1,7 @@
 package cz.vlasimsky.aop;
 
 import cz.vlasimsky.aop.dao.AccountDAO;
+import cz.vlasimsky.aop.dao.MembershipDAO;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
 public class App {
@@ -10,9 +11,16 @@ public class App {
 
         // get bean from container
         AccountDAO accountDAO = ctx.getBean("accountDAO", AccountDAO.class);
+        MembershipDAO membershipDAO = ctx.getBean("membershipDAO", MembershipDAO.class);
 
         // call the business method
-        accountDAO.addAccount();
+        accountDAO.addAccount(new Account(), false);
+        membershipDAO.addAccount();
+        membershipDAO.goSleep();
+        System.out.println("Again");
+        accountDAO.addAccount(new Account(), false);
+        accountDAO.doWork();
+        membershipDAO.addAccount();
 
         // close the context
         ctx.close();
