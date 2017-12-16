@@ -15,6 +15,10 @@ public class App {
 
         // call the business method
         accountDAO.addAccount(new Account(), false);
+        accountDAO.setName("foobar");
+        accountDAO.setServiceCode("gee");
+        accountDAO.getName();
+        accountDAO.getServiceCode();
         membershipDAO.addAccount();
         membershipDAO.goSleep();
         System.out.println("Again");
