@@ -14,15 +14,16 @@ public class App {
         MembershipDAO membershipDAO = ctx.getBean("membershipDAO", MembershipDAO.class);
 
         // call the business method
-        accountDAO.addAccount(new Account(), false);
-        accountDAO.setName("foobar");
-        accountDAO.setServiceCode("gee");
+        Account account = new Account();
+        account.setLevel("234");
+        account.setName("Account 1");
+        accountDAO.addAccount(account, false);
         accountDAO.getName();
         accountDAO.getServiceCode();
         membershipDAO.addAccount();
         membershipDAO.goSleep();
         System.out.println("Again");
-        accountDAO.addAccount(new Account(), false);
+        accountDAO.addAccount(account, false);
         accountDAO.doWork();
         membershipDAO.addAccount();
 

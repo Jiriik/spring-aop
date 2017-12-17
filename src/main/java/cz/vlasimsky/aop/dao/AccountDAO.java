@@ -12,6 +12,8 @@ public class AccountDAO {
 
     public void addAccount(Account account, boolean vip) {
         System.out.println(getClass() + ": Doing my db work: adding account");
+        this.name = account.getName();
+        this.serviceCode = account.getLevel();
     }
 
     public void doWork() {
