@@ -3,10 +3,13 @@ package cz.vlasimsky.aop.aspect;
 import cz.vlasimsky.aop.Account;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.Signature;
+import org.aspectj.lang.annotation.AfterReturning;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
+
+import java.util.List;
 
 @Aspect
 @Component
@@ -34,6 +37,16 @@ public class LoggingAspect {
         }
 
 
+    }
+
+    @AfterReturning(
+            pointcut = "execution(* cz.vlasimsky.aop.dao.AccountDAO.findAccounts(..))",
+            returning = "result")
+    public void afterReturningFindAccountsAdvice(JoinPoint joinPoint, List<Account> result) {
+        String method = joinPoint.getSignature().toShortString();
+        System.out.println("method = " + method);
+
+        System.out.println("result = " + result);
     }
 
 

@@ -14,9 +14,7 @@ public class App {
         MembershipDAO membershipDAO = ctx.getBean("membershipDAO", MembershipDAO.class);
 
         // call the business method
-        Account account = new Account();
-        account.setLevel("234");
-        account.setName("Account 1");
+        Account account = new Account("Account name 1", "lvl1");
         accountDAO.addAccount(account, false);
         accountDAO.getName();
         accountDAO.getServiceCode();

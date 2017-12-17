@@ -3,12 +3,22 @@ package cz.vlasimsky.aop.dao;
 import cz.vlasimsky.aop.Account;
 import org.springframework.stereotype.Component;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Component
 public class AccountDAO {
 
     private String name;
     private String serviceCode;
 
+    public List<Account> findAccounts() {
+        List<Account> accounts = new ArrayList<>();
+        for (int i = 0; i < 4; i++) {
+            accounts.add(new Account("Account " + i, Integer.toString(i)));
+        }
+        return accounts;
+    }
 
     public void addAccount(Account account, boolean vip) {
         System.out.println(getClass() + ": Doing my db work: adding account");
