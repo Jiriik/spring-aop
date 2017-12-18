@@ -4,6 +4,7 @@ import cz.vlasimsky.aop.Account;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.Signature;
 import org.aspectj.lang.annotation.AfterReturning;
+import org.aspectj.lang.annotation.AfterThrowing;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
 import org.springframework.core.annotation.Order;
@@ -50,6 +51,15 @@ public class LoggingAspect {
 
         convertAccountToUpperCase(result);
     }
+
+    @AfterThrowing(pointcut = "execution(* cz.vlasimsky.aop.dao.AccountDAO.findAccounts(..))",
+            throwing = "throwable")
+    public void afterThrowingFindAccounts(JoinPoint joinPoint, Throwable throwable) {
+        System.out.println("method = " + joinPoint.getSignature().toShortString());
+        System.out.println("throwable = " + throwable);
+    }
+
+
 
     private void convertAccountToUpperCase(List<Account> result) {
         result.forEach(val -> val.setName(val.getName().toUpperCase()));

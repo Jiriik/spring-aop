@@ -5,7 +5,7 @@ import org.springframework.context.annotation.AnnotationConfigApplicationContext
 
 import java.util.List;
 
-public class AppTestAfterReturning {
+public class AppTestAfterThrowing {
     public static void main(String[] args) {
         // read spring conf
         AnnotationConfigApplicationContext ctx = new AnnotationConfigApplicationContext(AppConfig.class);
@@ -13,8 +13,13 @@ public class AppTestAfterReturning {
         // get bean from container
         AccountDAO accountDAO = ctx.getBean("accountDAO", AccountDAO.class);
 
-        List<Account> accounts = accountDAO.findAccounts(false);
-        System.out.println("accounts = " + accounts);
+        try {
+            List<Account> accounts = accountDAO.findAccounts(true);
+            System.out.println("accounts = " + accounts);
+        } catch (Exception e) {
+            System.out.println("caught exception = " + e);
+        }
+
 
         // close the context
         ctx.close();

@@ -12,10 +12,13 @@ public class AccountDAO {
     private String name;
     private String serviceCode;
 
-    public List<Account> findAccounts() {
+    public List<Account> findAccounts(boolean tripWire) {
         List<Account> accounts = new ArrayList<>();
         for (int i = 0; i < 4; i++) {
             accounts.add(new Account("Account " + i, Integer.toString(i)));
+        }
+        if (tripWire) {
+            throw new IllegalArgumentException("Simulated exception");
         }
         return accounts;
     }
