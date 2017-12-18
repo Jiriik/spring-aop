@@ -47,6 +47,12 @@ public class LoggingAspect {
         System.out.println("method = " + method);
 
         System.out.println("result = " + result);
+
+        convertAccountToUpperCase(result);
+    }
+
+    private void convertAccountToUpperCase(List<Account> result) {
+        result.forEach(val -> val.setName(val.getName().toUpperCase()));
     }
 
 
