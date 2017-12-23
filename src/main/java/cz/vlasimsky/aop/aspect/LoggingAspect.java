@@ -75,7 +75,7 @@ public class LoggingAspect {
             result = proceedingJoinPoint.proceed();
         } catch (RuntimeException e) {
             LOGGER.warning("EXCEPTION AS HELL");
-            return "Major accident but no worries. Your helicopter is on it's way. ";
+            throw e;
         }
         long t2 = System.currentTimeMillis();
         LOGGER.info("Execution time " + (t2 - t1) + " ms");
