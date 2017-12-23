@@ -2,6 +2,7 @@ package cz.vlasimsky.aop.aspect;
 
 import cz.vlasimsky.aop.Account;
 import org.aspectj.lang.JoinPoint;
+import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.Signature;
 import org.aspectj.lang.annotation.*;
 import org.springframework.core.annotation.Order;
@@ -61,6 +62,16 @@ public class LoggingAspect {
         System.out.println("After Finally method = " + joinPoint.getSignature().toShortString());
     }
 
+
+    @Around("execution(* cz.vlasimsky.aop.service.TrafficFortuneService.getFortune(..))")
+    public Object aroundGetFortune(ProceedingJoinPoint proceedingJoinPoint) throws Throwable {
+        System.out.println("Executing @Around method = " + proceedingJoinPoint.getSignature().toShortString());
+        Long t1 = System.currentTimeMillis();
+        Object result = proceedingJoinPoint.proceed();
+        long t2 = System.currentTimeMillis();
+        System.out.println("Execution time " + (t2 - t1) + " ms");
+        return result;
+    }
 
     private void convertAccountToUpperCase(List<Account> result) {
         result.forEach(val -> val.setName(val.getName().toUpperCase()));
