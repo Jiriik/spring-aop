@@ -70,7 +70,13 @@ public class LoggingAspect {
     public Object aroundGetFortune(ProceedingJoinPoint proceedingJoinPoint) throws Throwable {
         LOGGER.info("Executing @Around method = " + proceedingJoinPoint.getSignature().toShortString());
         Long t1 = System.currentTimeMillis();
-        Object result = proceedingJoinPoint.proceed();
+        Object result;
+        try {
+            result = proceedingJoinPoint.proceed();
+        } catch (RuntimeException e) {
+            LOGGER.warning("EXCEPTION AS HELL");
+            return "Major accident but no worries. Your helicopter is on it's way. ";
+        }
         long t2 = System.currentTimeMillis();
         LOGGER.info("Execution time " + (t2 - t1) + " ms");
         return result;
